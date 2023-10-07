@@ -1,5 +1,7 @@
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import React from "react";
+import Header from "../Common/Header";
+import Footer from "../Common/Footer";
 
 type ThemeProp = {
   children: JSX.Element;
@@ -23,7 +25,9 @@ export const ThemeConfig: React.FC<ThemeProp> = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <Header/>
       {children}
+      <Footer/>
     </ThemeProvider>
   );
 };
