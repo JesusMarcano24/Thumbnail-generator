@@ -3,6 +3,10 @@ import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
+import { useMutation } from '@tanstack/react-query';
+
+import { postImage } from '../api/imagesAPI';
+
 const VisuallyHiddenInput = styled('input')({
   clip: 'rect(0 0 0 0)',
   clipPath: 'inset(50%)',
@@ -16,6 +20,15 @@ const VisuallyHiddenInput = styled('input')({
 });
 
 export default function Crop() {
+
+  const addImageMutation = useMutation({
+    mutationFn : postImage,
+    onSuccess: () => {
+      console.log('Image Added!')
+    }
+  })
+
+
   const [previewImage, setPreviewImage] = React.useState<string | null>(null);
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -25,7 +38,9 @@ export default function Crop() {
       const reader = new FileReader();
       reader.onload = function (e) {
         if (e.target && typeof e.target.result === 'string') {
-          setPreviewImage(e.target.result);
+          const base64String = e.target.result
+          setPreviewImage(base64String);
+          addImageMutation.mutate(base64String)
         }
       };
       reader.readAsDataURL(selectedFile);
@@ -38,8 +53,9 @@ export default function Crop() {
         Upload file
         <VisuallyHiddenInput
           type="file"
-          name="file"
           onChange={handleFileUpload}
+          className="file-upload-input"
+          accept="image/*"
         />
       </Button>
 

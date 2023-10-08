@@ -9,4 +9,4 @@ export const getImages = async  () => {
     return res.data
 }
 
-export const postImage = (image : string) => imagesApi.post('/', image)
+export const postImage = (image : string) => imagesApi.post('/', {base64 : image})
