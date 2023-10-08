@@ -15,7 +15,8 @@ export default function Images() {
 
     const {isLoading, data : images , isError, error} = useQuery({
         queryKey: ['images'],
-        queryFn: getImages
+        queryFn: getImages,
+        select: image => image.sort((a: Image, b: Image) => b.id - a.id)
     })
 
     if (isLoading) return <div>Loading...</div>

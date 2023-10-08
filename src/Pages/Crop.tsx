@@ -3,7 +3,7 @@ import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { postImage } from '../api/imagesAPI';
 
@@ -21,10 +21,13 @@ const VisuallyHiddenInput = styled('input')({
 
 export default function Crop() {
 
+  const queryClient = useQueryClient();
+
   const addImageMutation = useMutation({
     mutationFn : postImage,
     onSuccess: () => {
-      console.log('Image Added!')
+      console.log('Image Added!');
+      queryClient.invalidateQueries();
     }
   })
 
