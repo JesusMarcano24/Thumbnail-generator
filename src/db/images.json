@@ -1,0 +1,14 @@
+{
+    "images": [
+        {
+            "id" : 1,
+            "name" : "Laptop",
+            "extension" : ".png"
+        },
+        {
+            "id" : 2,
+            "name" : "Computadora",
+            "extension" : ".png"
+        }
+    ]
+}

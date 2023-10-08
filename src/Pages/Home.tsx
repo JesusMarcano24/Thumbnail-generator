@@ -1,9 +1,14 @@
 import * as React from 'react';
+
+//MUI
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
+
+// React Router Dom
+import { Link } from "react-router-dom";
 
 export default function Home() {
   return (
@@ -36,8 +41,12 @@ export default function Home() {
               spacing={2}
               justifyContent="center"
             >
-              <Button variant="contained">Crop your image</Button>
-              <Button variant="outlined">Resize your image</Button>
+              <Link to="/Crop">
+                <Button variant="contained">Crop your image</Button>
+              </Link>
+              <Link to="/Resize">
+                <Button variant="outlined">Resize your image</Button>
+              </Link>
             </Stack>
           </Container>
         </Box>
