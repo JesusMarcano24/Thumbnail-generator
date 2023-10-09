@@ -58,7 +58,7 @@ export default function Crop() {
           type="file"
           onChange={handleFileUpload}
           className="file-upload-input"
-          accept="image/*"
+          accept=".jpeg, .png, .jpg"
         />
       </Button>
 
