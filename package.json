@@ -22,6 +22,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-image-crop": "^10.1.8",
+    "react-image-file-resizer": "^0.4.8",
     "react-router-dom": "^6.16.0"
   },
   "devDependencies": {

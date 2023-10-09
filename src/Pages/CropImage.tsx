@@ -221,9 +221,9 @@ export default function CropImage() {
           />
         </div>
 
-{/*       {previewImage && (
-        <img src={previewImage} alt="Preview" />
-      )} */}
+        {previewImage && (
+          <img src={previewImage} alt="Preview" />
+        )}
 
         <div>
           <label htmlFor="rotate-input">Rotate: </label>
@@ -249,8 +249,8 @@ export default function CropImage() {
           onChange={(_, percentCrop) => setCrop(percentCrop)}
           onComplete={(c) => setCompletedCrop(c)}
           aspect={aspect}
-          // minWidth={400}
-          minHeight={200}
+          minWidth={50}
+          minHeight={50}
         >
           <img
             ref={imgRef}
