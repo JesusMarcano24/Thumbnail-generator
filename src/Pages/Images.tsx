@@ -20,12 +20,11 @@ export default function Images() {
         select: image => image.sort((a: Image, b: Image) => b.id - a.id)
     })
 
-    if (isLoading) return <div>Loading...</div>
+    if (isLoading) return <Loader/>
     else if(isError) return <div>Error: {(error as Error).message}</div>
 
   return images.map((img : Image) => (
     <div>
-      <Loader/>
       <img src={img.base64} alt="imagensita" />
     </div>
   ))
