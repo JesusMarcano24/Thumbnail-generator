@@ -174,9 +174,6 @@ export default function CropImage() {
     }
   })
 
-  //Preview
-  const [previewImage, setPreviewImage] = useState<string | null>(null);
-
   //Convert the file to base64 and making the post to the API
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files && event.target.files[0];
@@ -187,7 +184,6 @@ export default function CropImage() {
       reader.onload = function (e) {
         if (e.target && typeof e.target.result === 'string') {
           const base64String = e.target.result
-          setPreviewImage(base64String);
           setImgSrc(reader.result?.toString() || '')
           addImageMutation.mutate(base64String)
         }
@@ -208,7 +204,6 @@ export default function CropImage() {
         />
       </Button>
 
-        {/* <input type="file" accept="image/*" onChange={onSelectFile} /> */}
         <div>
           <label htmlFor="scale-input">Scale: </label>
           <input
@@ -220,10 +215,6 @@ export default function CropImage() {
             onChange={(e) => setScale(Number(e.target.value))}
           />
         </div>
-
-        {previewImage && (
-          <img src={previewImage} alt="Preview" />
-        )}
 
         <div>
           <label htmlFor="rotate-input">Rotate: </label>
