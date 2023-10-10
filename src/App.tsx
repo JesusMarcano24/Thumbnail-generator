@@ -1,5 +1,3 @@
-import React from "react";
-
 //React Router Dom
 import { Route, Routes } from "react-router-dom";
 

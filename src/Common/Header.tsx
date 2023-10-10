@@ -1,4 +1,3 @@
-import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import Toolbar from '@mui/material/Toolbar';

@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 //Api
 import { getImages } from '../api/imagesAPI';
 
