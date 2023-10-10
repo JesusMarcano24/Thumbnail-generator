@@ -4,6 +4,9 @@ import { getImages } from '../api/imagesAPI';
 //Tanstack
 import { useQuery } from '@tanstack/react-query';
 
+//Loader
+import Loader from '../Common/Loader';
+
 type Image = {
   id: number;
   base64: string;
@@ -22,6 +25,7 @@ export default function Images() {
 
   return images.map((img : Image) => (
     <div>
+      <Loader/>
       <img src={img.base64} alt="imagensita" />
     </div>
   ))

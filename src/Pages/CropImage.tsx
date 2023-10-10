@@ -2,6 +2,7 @@ import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import Loader from '../Common/Loader';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
@@ -194,6 +195,7 @@ export default function CropImage() {
 
   return (
     <>
+      <Loader/>
       <Button component="label" variant="contained" startIcon={<CloudUploadIcon />}>
         Upload file
         <VisuallyHiddenInput

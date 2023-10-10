@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import Resizer from "react-image-file-resizer";
+import Loader from "../Common/Loader";
 
 function Resize() {
   const [width, setWidth] = useState<number>(0);
@@ -71,6 +72,7 @@ function Resize() {
 
   return (
     <div className="App">
+      <Loader/>
       <input type="file" accept=".jpeg, .png, .jpg" onChange={showPreview} />
       <button onClick={fileChangedHandler}>Resize</button>
       <div>Width:</div>
