@@ -3,12 +3,14 @@ import Resizer from "react-image-file-resizer";
 
 function Resize() {
   const [width, setWidth] = useState<number>(0);
-  const [select, setSelect] = useState([]);
+  const [name, setName] = useState<string>("");
+  const [select, setSelect] = useState<File | null>(null);
+  const [format, setFormat] = useState<string>("");
+
+  console.log(format)
 
   //Preview
   const [previewImage, setPreviewImage] = useState<string | null>(null);
-
-  console.log(select)
 
   const fileChangedHandler = () => {
     if (select) {
@@ -17,7 +19,7 @@ function Resize() {
           select,
           width,
           1000,
-          "PNG",
+          format,
           100,
           0,
           (uri) => {
@@ -55,16 +57,43 @@ function Resize() {
       }
     };
 
+      // Download the resized image
+    const downloadImage = () => {
+      if (previewImage) {
+        const a = document.createElement("a");
+        a.href = previewImage;
+        a.download = `${name}.${format}`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      }
+    };
+
   return (
     <div className="App">
-      <input type="file" onChange={showPreview} />
+      <input type="file" accept=".jpeg, .png, .jpg" onChange={showPreview} />
       <button onClick={fileChangedHandler}>Resize</button>
-      <span>Width:</span>
+      <div>Width:</div>
       <input type="number" onChange={e => setWidth(parseInt(e.target.value))}/>
+      <div>Choose a name for your new image</div>
+      <input type="text" onChange={e => setName(e.target.value)}/>
+
+      <div>
+        <label htmlFor="format-select">Choose your format:</label>
+        <select id="format-select" onChange={e => setFormat(e.target.value)}>
+          <option value="png">PNG</option>
+          <option value="jpg">JPG</option>
+          <option value="jpeg">JPEG</option>
+        </select>
+      </div>
+
+      <br />
 
       {previewImage && (
           <img src={previewImage} alt="Preview" />
       )}
+
+    <button onClick={downloadImage}>Download</button>
     </div>
   );
 }
