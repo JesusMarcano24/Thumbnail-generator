@@ -35,27 +35,6 @@ const VisuallyHiddenInput = styled('input')({
   width: 1,
 });
 
-//Center Crop
-function centerAspectCrop(
-  mediaWidth: number,
-  mediaHeight: number,
-  aspect: number,
-) {
-  return centerCrop(
-    makeAspectCrop(
-      {
-        unit: '%',
-        width: 90,
-      },
-      aspect,
-      mediaWidth,
-      mediaHeight,
-    ),
-    mediaWidth,
-    mediaHeight,
-  )
-}
-
 export default function CropImage() {
 
   const [imgSrc, setImgSrc] = useState('')
@@ -69,6 +48,30 @@ export default function CropImage() {
   const [rotate, setRotate] = useState(0)
   const [aspect, setAspect] = useState<number | undefined>(16 / 9)
 
+  const [name, setName] = useState<string>("");
+  const [format, setFormat] = useState<string>("");
+
+    //Center Crop
+  function centerAspectCrop(
+    mediaWidth: number,
+    mediaHeight: number,
+    aspect: number,
+  ) {
+    return centerCrop(
+      makeAspectCrop(
+        {
+          unit: '%',
+          width: 90,
+        },
+        aspect,
+        mediaWidth,
+        mediaHeight,
+      ),
+      mediaWidth,
+      mediaHeight,
+    )
+  }
+
   //OnImageLoad
   function onImageLoad(e: React.SyntheticEvent<HTMLImageElement>) {
     if (aspect) {
@@ -79,27 +82,24 @@ export default function CropImage() {
 
   //Download the image
   async function onDownloadCropClick() {
-    const image = imgRef.current
-    const previewCanvas = previewCanvasRef.current
+    const image = imgRef.current;
+    const previewCanvas = previewCanvasRef.current;
     if (!image || !previewCanvas || !completedCrop) {
-      throw new Error('Crop canvas does not exist')
+      throw new Error('Crop canvas does not exist');
     }
-
-    // This will size relative to the uploaded image
-    // size. If you want to size according to what they
-    // are looking at on screen, remove scaleX + scaleY
-    const scaleX = image.naturalWidth / image.width
-    const scaleY = image.naturalHeight / image.height
-
+  
+    const scaleX = image.naturalWidth / image.width;
+    const scaleY = image.naturalHeight / image.height;
+  
     const offscreen = new OffscreenCanvas(
       completedCrop.width * scaleX,
       completedCrop.height * scaleY,
-    )
-    const ctx = offscreen.getContext('2d')
+    );
+    const ctx = offscreen.getContext('2d');
     if (!ctx) {
-      throw new Error('No 2d context')
+      throw new Error('No 2d context');
     }
-
+  
     ctx.drawImage(
       previewCanvas,
       0,
@@ -110,18 +110,25 @@ export default function CropImage() {
       0,
       offscreen.width,
       offscreen.height,
-    )
-
+    );
+  
     const blob = await offscreen.convertToBlob({
       type: 'image/png',
-    })
-
+    });
+  
+    const customFileName = `${name}.${format}`;
+  
     if (blobUrlRef.current) {
-      URL.revokeObjectURL(blobUrlRef.current)
+      URL.revokeObjectURL(blobUrlRef.current);
     }
-    blobUrlRef.current = URL.createObjectURL(blob)
-    hiddenAnchorRef.current!.href = blobUrlRef.current
-    hiddenAnchorRef.current!.click()
+    blobUrlRef.current = URL.createObjectURL(blob);
+  
+    // Configura el atributo "download" con el nombre personalizado
+    hiddenAnchorRef.current!.href = blobUrlRef.current;
+    hiddenAnchorRef.current!.download = customFileName;
+  
+    // Hace clic en el enlace para iniciar la descarga
+    hiddenAnchorRef.current!.click();
   }
 
   //Efecto rebote
@@ -133,7 +140,6 @@ export default function CropImage() {
         imgRef.current &&
         previewCanvasRef.current
       ) {
-        // We use canvasPreview as it's much faster than imgPreview.
         canvasPreview(
           imgRef.current,
           previewCanvasRef.current,
@@ -147,7 +153,6 @@ export default function CropImage() {
     [completedCrop, scale, rotate],
   )
 
-  //Setear el aspecto
   function handleToggleAspectClick() {
     if (aspect) {
       setAspect(undefined)
@@ -230,6 +235,19 @@ export default function CropImage() {
             }
           />
         </div>
+
+        <div>Choose a name for your new image</div>
+        <input type="text" onChange={e => setName(e.target.value)}/>
+
+        <div>
+          <label htmlFor="format-select">Choose your format:</label>
+          <select id="format-select" onChange={e => setFormat(e.target.value)}>
+            <option value="png">PNG</option>
+            <option value="jpg">JPG</option>
+            <option value="jpeg">JPEG</option>
+          </select>
+        </div>
+
         <div>
           <button onClick={handleToggleAspectClick}>
             Toggle aspect {aspect ? 'off' : 'on'}
