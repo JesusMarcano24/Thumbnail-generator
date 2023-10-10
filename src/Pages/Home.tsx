@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 export default function Home() {
   return (
     <>
-      <main>
+      <main id='home'>
         <Box
           sx={{
             bgcolor: 'background.paper',
@@ -29,8 +29,8 @@ export default function Home() {
             >
               Thumbnail Generator
             </Typography>
-            <Typography variant="h5" align="center" color="text.secondary" paragraph>
-                
+            <Typography variant="h6" align="center" color="text.secondary" paragraph>
+              Welcome to I love thumbnail Generator! The fastest way to crop, resize and format your images!
             </Typography>
             <Stack
               sx={{ pt: 4 }}
@@ -47,7 +47,6 @@ export default function Home() {
             </Stack>
           </Container>
         </Box>
-          
       </main>
     </>
   );

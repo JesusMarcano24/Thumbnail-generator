@@ -4,7 +4,7 @@ import Typography from '@mui/material/Typography';
 export default function Footer() {
   return (
     <>
-      <Box sx={{ bgcolor: 'background.paper', p: 6 }} component="footer">
+      <Box sx={{ p: 6 }} component="footer" id='Footer'>
         <Typography
           variant="subtitle1"
           align="center"
