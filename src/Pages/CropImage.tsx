@@ -21,7 +21,7 @@ import { canvasPreview } from './canvasPreview'
 import { useDebounceEffect } from './useDebounceEffect'
 
 import 'react-image-crop/dist/ReactCrop.css'
-import { Typography } from '@mui/material';
+import { Box, FormControl, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { blueGrey } from '@mui/material/colors';
 import { Container ,Row, Col } from 'reactstrap';
 
@@ -39,7 +39,7 @@ export default function CropImage() {
   const [aspect, setAspect] = useState<number | undefined>(16 / 9)
 
   const [name, setName] = useState<string>("");
-  const [format, setFormat] = useState<string>("");
+  const [format, setFormat] = useState<string | unknown>("");
 
   const [open, setOpen] = useState(true);
 
@@ -227,46 +227,45 @@ export default function CropImage() {
         </Button>
         </Backdrop>
         <Loader/>
-        <Container>
-          <Row>
+        <Container className="vh-100">
+          <Row className="d-flex align-items-center h-100">
             <Col xs="12" lg="4" className="d-flex">
               <div>
-        <div>
-          <label htmlFor="scale-input">Scale: </label>
-          <input
-            id="scale-input"
-            type="number"
-            step="0.1"
-            value={scale}
-            disabled={!imgSrc}
-            onChange={(e) => setScale(Number(e.target.value))}
-          />
-        </div>
-
-        <div>
-          <label htmlFor="rotate-input">Rotate: </label>
-          <input
-            id="rotate-input"
+        <Box
+          component="form"
+          noValidate
+          autoComplete="off"
+        >
+          <Typography sx={{ mt: 3, mb:2 }}>Scale:</Typography>
+          <TextField   id="scale-input" type="number" value={scale} disabled={!imgSrc} onChange={(e) => setScale(Number(e.target.value))}/>
+          <Typography sx={{ mt: 3, mb:2 }}>Rotate:</Typography>
+          <TextField id="rotate-input"
             type="number"
             value={rotate}
             disabled={!imgSrc}
             onChange={(e) =>
               setRotate(Math.min(180, Math.max(-180, Number(e.target.value))))
-            }
-          />
-        </div>
+            }/>
+            <Typography sx={{ mt: 3, mb:2 }}>Choose a name for your new image:</Typography>
+            <TextField id="outlined-basic" label="Name" variant="outlined" onChange={e => setName(e.target.value)}/>
+        </Box>
 
-        <div>Choose a name for your new image</div>
-        <input type="text" onChange={e => setName(e.target.value)}/>
-
-        <div>
-          <label htmlFor="format-select">Choose your format:</label>
-          <select id="format-select" onChange={e => setFormat(e.target.value)}>
-            <option value="png">PNG</option>
-            <option value="jpg">JPG</option>
-            <option value="jpeg">JPEG</option>
-          </select>
-        </div>
+        <Box sx={{ minWidth: 150, pt: 1 }}>
+          <Typography sx={{ mt: 3, mb:2 }}>Choose your preferred format:</Typography>
+          <FormControl fullWidth>
+            <InputLabel id="format-select">Format</InputLabel>
+            <Select
+              labelId="format-select"
+              id="format-select"
+              label="Format"
+              onChange={e => setFormat(e.target.value)}
+            >
+              <MenuItem value="png">PNG</MenuItem>
+              <MenuItem value="jpg">JPG</MenuItem>
+              <MenuItem value="jpeg">JPEG</MenuItem>
+            </Select>
+          </FormControl>
+        </Box>
 
         <div>
           <button onClick={handleToggleAspectClick}>
