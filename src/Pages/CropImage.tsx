@@ -1,4 +1,3 @@
-import * as React from 'react';
 import Button from '@mui/material/Button';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import Loader from '../Common/Loader';
@@ -9,7 +8,7 @@ import { useState, useRef } from 'react';
 
 import { postImage } from '../api/imagesAPI';
 
-import { VisuallyHiddenInput } from '../Common/Styled';
+import Backdrop from "@mui/material/Backdrop";
 
 import ReactCrop, {
   centerCrop,
@@ -22,6 +21,9 @@ import { canvasPreview } from './canvasPreview'
 import { useDebounceEffect } from './useDebounceEffect'
 
 import 'react-image-crop/dist/ReactCrop.css'
+import { Typography } from '@mui/material';
+import { blueGrey } from '@mui/material/colors';
+import { Container ,Row, Col } from 'reactstrap';
 
 export default function CropImage() {
 
@@ -38,6 +40,8 @@ export default function CropImage() {
 
   const [name, setName] = useState<string>("");
   const [format, setFormat] = useState<string>("");
+
+  const [open, setOpen] = useState(true);
 
     //Center Crop
   function centerAspectCrop(
@@ -178,6 +182,7 @@ export default function CropImage() {
       reader.onload = function (e) {
         if (e.target && typeof e.target.result === 'string') {
           const base64String = e.target.result
+          setOpen(false)
           setImgSrc(reader.result?.toString() || '')
           addImageMutation.mutate(base64String)
         }
@@ -188,17 +193,44 @@ export default function CropImage() {
 
   return (
     <>
-      <Loader/>
-      <Button component="label" variant="contained" startIcon={<CloudUploadIcon />}>
-        Upload file
-        <VisuallyHiddenInput
-          type="file"
-          onChange={handleFileUpload}
-          className="file-upload-input"
-          accept=".jpeg, .png, .jpg"
-        />
-      </Button>
-
+      <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={open}
+      >
+        <Button
+          sx={{
+            height: "90%",
+            width: "90%",
+            border: 2,
+            borderColor: "grey",
+            borderStyle: "dashed",
+            borderRadius: 10,
+            overflow: "hidden",
+            backgroundColor: blueGrey[300],
+            '&:hover': {
+              backgroundColor: blueGrey[400],
+            }
+          }}
+          component="label"
+          variant="contained"
+          startIcon={<CloudUploadIcon />}
+        >
+          <Typography variant="h6" color="black" noWrap>
+            Select a File or Drag and Drop It
+          </Typography>
+          <input
+            type="file"
+            onChange={handleFileUpload}
+            className="vh-100 vw-100 position-absolute"
+            accept=".jpeg, .png, .jpg"
+          />
+        </Button>
+        </Backdrop>
+        <Loader/>
+        <Container>
+          <Row>
+            <Col xs="12" lg="4" className="d-flex">
+              <div>
         <div>
           <label htmlFor="scale-input">Scale: </label>
           <input
@@ -242,25 +274,7 @@ export default function CropImage() {
           </button>
         </div>
 
-        {!!imgSrc && (
-        <ReactCrop
-          crop={crop}
-          onChange={(_, percentCrop) => setCrop(percentCrop)}
-          onComplete={(c) => setCompletedCrop(c)}
-          aspect={aspect}
-          minWidth={50}
-          minHeight={50}
-        >
-          <img
-            ref={imgRef}
-            alt="Crop me"
-            src={imgSrc}
-            style={{ transform: `scale(${scale}) rotate(${rotate}deg)` }}
-            onLoad={onImageLoad}
-          />
-        </ReactCrop>
-      )}
-      {!!completedCrop && (
+        {!!completedCrop && (
         <>
           <div>
             <canvas
@@ -289,7 +303,32 @@ export default function CropImage() {
             </a>
           </div>
         </>
-      )}
+        )}
+              </div>
+        </Col>
+
+        <Col xs="12" lg="8" className="d-flex justify-content-center">
+          {!!imgSrc && (
+            <ReactCrop
+            crop={crop}
+            onChange={(_, percentCrop) => setCrop(percentCrop)}
+            onComplete={(c) => setCompletedCrop(c)}
+            aspect={aspect}
+            minWidth={50}
+            minHeight={50}
+            >
+            <img
+              ref={imgRef}
+              alt="Crop me"
+              src={imgSrc}
+              style={{ transform: `scale(${scale}) rotate(${rotate}deg)` }}
+              onLoad={onImageLoad}
+              />
+          </ReactCrop>
+          )}
+          </Col>
+          </Row>
+        </Container>
     </>
   );
 }
