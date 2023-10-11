@@ -25,7 +25,7 @@ export const ThemeConfig: React.FC<ThemeProp> = ({ children }) => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Header/>
-      {children}
+        {children}
       <Footer/>
     </ThemeProvider>
   );

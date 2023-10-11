@@ -1,18 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Resizer from "react-image-file-resizer";
 import Loader from "../Common/Loader";
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
-import { green } from '@mui/material/colors';
+import { blueGrey, green } from '@mui/material/colors';
 import Button from '@mui/material/Button';
-import Fab from '@mui/material/Fab';
-import CheckIcon from '@mui/icons-material/Check';
-import DownloadIcon from '@mui/icons-material/Download';
 import { Container, Row, Col } from "reactstrap";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import TextField from '@mui/material/TextField';
+import { Typography } from "@mui/material";
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import Backdrop from "@mui/material/Backdrop";
+
+import { VisuallyHiddenInput } from "../Common/Styled";
 
 function Resize() {
   const [width, setWidth] = useState<number>(0);
@@ -24,8 +27,10 @@ function Resize() {
   const [success, setSuccess] = React.useState(false);
   const timer = React.useRef<number>();
 
-    //Preview
-    const [previewImage, setPreviewImage] = useState<string | null>(null);
+  const [open, setOpen] = React.useState(true);
+
+  //Preview
+  const [previewImage, setPreviewImage] = useState<string | null>(null);
 
   const buttonSx = {
     ...(success && {
@@ -36,7 +41,7 @@ function Resize() {
     }),
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     return () => {
       clearTimeout(timer.current);
     };
@@ -57,12 +62,7 @@ function Resize() {
     if (select) {
       try {
         Resizer.imageFileResizer(
-          select,
-          width,
-          1000,
-          format,
-          100,
-          0,
+          select, width, 1000, format, 100, 0,
           (uri) => {
             if (typeof uri === "string") {
               console.log(uri);
@@ -71,9 +71,7 @@ function Resize() {
               console.error("Invalid image type:", uri);
             }
           },
-          "base64",
-          20,
-          20
+          "base64", 20, 20
         );
       } catch (err) {
         console.log(err);
@@ -91,6 +89,7 @@ function Resize() {
         reader.onload = function (e) {
           if (e.target && typeof e.target.result === 'string') {
             const base64String = e.target.result
+            setOpen(false)
             setPreviewImage(base64String);
           }
         };
@@ -112,19 +111,49 @@ function Resize() {
 
   return (
     <>
-      <Loader/>
+      <Backdrop
+      sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      open={open}
+      >
+        <Button
+          sx={{
+            height: 600,
+            width: 1400,
+            border: 2,
+            borderColor: "black",
+            borderStyle: "dashed",
+            backgroundColor: blueGrey[300],
+            '&:hover': {
+              backgroundColor: blueGrey[400],
+            }
+          }}
+          component="label"
+          variant="contained"
+          startIcon={<CloudUploadIcon />}
+        >
+          Upload a File or Drag and Drop It!
+          <VisuallyHiddenInput
+            type="file"
+            onChange={showPreview}
+            className="file-upload-input"
+            accept=".jpeg, .png, .jpg"
+          />
+        </Button>
+      </Backdrop>
       <Container className="vh-100">
         <Row className="d-flex align-items-center h-100">
           <Col xs="12" lg="4" className="d-flex">
             <div>
-              <div>
-                <label htmlFor="archivo">Subir archivo</label>
-                <input className="d-none" type="file" id="archivo" accept=".jpeg, .png, .jpg" onChange={showPreview} />
-              </div>
-              <div>Width:</div>
-              <input type="number" onChange={e => setWidth(parseInt(e.target.value))}/>
-              <div>Choose a name for your new image</div>
-              <input type="text" onChange={e => setName(e.target.value)}/>
+              <Box
+                component="form"
+                noValidate
+                autoComplete="off"
+              >
+                <Typography sx={{ mt: 3 }}>Width:</Typography>
+                <TextField id="outlined-basic" label="Width" variant="outlined" onChange={e => setWidth(parseInt(e.target.value))}/>
+                <Typography sx={{ mt: 3 }}>Choose a name for your new image:</Typography>
+                <TextField id="outlined-basic" label="Name" variant="outlined" onChange={e => setName(e.target.value)}/>
+              </Box>
               
               <Box sx={{ minWidth: 150, pt: 5 }}>
                 <FormControl fullWidth>
@@ -132,7 +161,7 @@ function Resize() {
                   <Select
                     labelId="format-select"
                     id="format-select"
-                    label="Age"
+                    label="Format"
                     onChange={e => setFormat(e.target.value)}
                   >
                     <MenuItem value="png">PNG</MenuItem>
@@ -145,30 +174,7 @@ function Resize() {
               <Button onClick={fileChangedHandler}>Resize</Button>
 
               {!!previewImage && ( 
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <Box sx={{ m: 1, position: 'relative' }}>
-                    <Fab
-                      aria-label="save"
-                      color="primary"
-                      sx={buttonSx}
-                      onClick={handleButtonClick}
-                      >
-                      {success ? <CheckIcon /> : <DownloadIcon />}
-                    </Fab>
-                    {loading && (
-                      <CircularProgress
-                      size={68}
-                      sx={{
-                        color: green[500],
-                        position: 'absolute',
-                        top: -6,
-                        left: -6,
-                          zIndex: 1,
-                        }}
-                        />
-                        )}
-                  </Box>
-                  <Box sx={{ m: 1, position: 'relative' }}>
+                  <Box sx={{  position: 'relative' }}>
                     <Button
                         variant="contained"
                         sx={buttonSx}
@@ -194,7 +200,6 @@ function Resize() {
                         />
                         )}
                   </Box>
-                </Box>
               )}
             </div>
           </Col>
