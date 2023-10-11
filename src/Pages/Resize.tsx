@@ -8,6 +8,7 @@ import Button from '@mui/material/Button';
 import Fab from '@mui/material/Fab';
 import CheckIcon from '@mui/icons-material/Check';
 import DownloadIcon from '@mui/icons-material/Download';
+import { Container, Row, Col } from "reactstrap";
 
 function Resize() {
   const [width, setWidth] = useState<number>(0);
@@ -106,83 +107,91 @@ function Resize() {
     };
 
   return (
-    <div className="App">
+    <>
       <Loader/>
-      <input type="file" accept=".jpeg, .png, .jpg" onChange={showPreview} />
-      <button onClick={fileChangedHandler}>Resize</button>
-      <div>Width:</div>
-      <input type="number" onChange={e => setWidth(parseInt(e.target.value))}/>
-      <div>Choose a name for your new image</div>
-      <input type="text" onChange={e => setName(e.target.value)}/>
-
-      <div>
-        <label htmlFor="format-select">Choose your format:</label>
-        <select id="format-select" onChange={e => setFormat(e.target.value)}>
-          <option value="png">PNG</option>
-          <option value="jpg">JPG</option>
-          <option value="jpeg">JPEG</option>
-        </select>
-      </div>
-
-      <br />
-
-      {previewImage && (
-          <img src={previewImage} alt="Preview" />
-      )}
-
-    {!!previewImage && ( 
-      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-        <Box sx={{ m: 1, position: 'relative' }}>
-          <Fab
-            aria-label="save"
-            color="primary"
-            sx={buttonSx}
-            onClick={handleButtonClick}
-          >
-            {success ? <CheckIcon /> : <DownloadIcon />}
-          </Fab>
-          {loading && (
-            <CircularProgress
-              size={68}
-              sx={{
-                color: green[500],
-                position: 'absolute',
-                top: -6,
-                left: -6,
-                zIndex: 1,
-              }}
-            />
-          )}
-        </Box>
-        <Box sx={{ m: 1, position: 'relative' }}>
-          <Button
-              variant="contained"
-              sx={buttonSx}
-              disabled={loading}
-              onClick={() => {
-                handleButtonClick();
-                downloadImage();
-              }}
-            >
-              Download Image
-            </Button>
-            {loading && (
-              <CircularProgress
-                size={24}
-                sx={{
-                  color: green[500],
-                  position: 'absolute',
-                  top: '50%',
-                  left: '50%',
-                  marginTop: '-12px',
-                  marginLeft: '-12px',
-                }}
-              />
+      <Container>
+        <Row>
+          <Col xs="6" className="d-flex justify-content-center">
+            {previewImage && (
+                <img src={previewImage} alt="Preview" />
             )}
-        </Box>
-      </Box>
-    )}
-    </div>
+          </Col>
+
+          <Col xs="6" className="d-flex justify-content-center">
+            <div>
+              <input type="file" accept=".jpeg, .png, .jpg" onChange={showPreview} />
+              <button onClick={fileChangedHandler}>Resize</button>
+              <div>Width:</div>
+              <input type="number" onChange={e => setWidth(parseInt(e.target.value))}/>
+              <div>Choose a name for your new image</div>
+              <input type="text" onChange={e => setName(e.target.value)}/>
+
+              <div>
+                <label htmlFor="format-select">Choose your format:</label>
+                <select id="format-select" onChange={e => setFormat(e.target.value)}>
+                  <option value="png">PNG</option>
+                  <option value="jpg">JPG</option>
+                  <option value="jpeg">JPEG</option>
+                </select>
+              </div>
+
+              {!!previewImage && ( 
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <Box sx={{ m: 1, position: 'relative' }}>
+                    <Fab
+                      aria-label="save"
+                      color="primary"
+                      sx={buttonSx}
+                      onClick={handleButtonClick}
+                      >
+                      {success ? <CheckIcon /> : <DownloadIcon />}
+                    </Fab>
+                    {loading && (
+                      <CircularProgress
+                      size={68}
+                      sx={{
+                        color: green[500],
+                        position: 'absolute',
+                        top: -6,
+                        left: -6,
+                          zIndex: 1,
+                        }}
+                        />
+                        )}
+                  </Box>
+                  <Box sx={{ m: 1, position: 'relative' }}>
+                    <Button
+                        variant="contained"
+                        sx={buttonSx}
+                        disabled={loading}
+                        onClick={() => {
+                          handleButtonClick();
+                          downloadImage();
+                        }}
+                        >
+                        Download Image
+                      </Button>
+                      {loading && (
+                        <CircularProgress
+                        size={24}
+                        sx={{
+                          color: green[500],
+                          position: 'absolute',
+                          top: '50%',
+                          left: '50%',
+                          marginTop: '-12px',
+                          marginLeft: '-12px',
+                        }}
+                        />
+                        )}
+                  </Box>
+                </Box>
+              )}
+            </div>
+          </Col>
+        </Row>
+      </Container>
+    </>
   );
 }
 
