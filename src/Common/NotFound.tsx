@@ -1,10 +1,10 @@
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
 
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 export default function NotFound() {
   return (
@@ -13,7 +13,7 @@ export default function NotFound() {
         {/* Hero unit */}
         <Box
           sx={{
-            bgcolor: 'background.paper',
+            bgcolor: "background.paper",
             pt: 8,
             pb: 6,
           }}
@@ -28,12 +28,23 @@ export default function NotFound() {
             >
               404 NOT FOUND
             </Typography>
-            <Typography maxWidth="md" variant="h5" align="center" color="text.secondary" paragraph>
-                This route does not exist or has not yet been created
+            <Typography
+              maxWidth="md"
+              variant="h5"
+              align="center"
+              color="text.secondary"
+              paragraph
+            >
+              This route does not exist or has not yet been created
             </Typography>
 
-            <Typography maxWidth="md" align="center" color="text.secondary" paragraph>
-                Explore our existing features!
+            <Typography
+              maxWidth="md"
+              align="center"
+              color="text.secondary"
+              paragraph
+            >
+              Explore our existing features!
             </Typography>
             <Stack
               sx={{ pt: 4 }}
@@ -50,7 +61,6 @@ export default function NotFound() {
             </Stack>
           </Container>
         </Box>
-          
       </main>
     </>
   );

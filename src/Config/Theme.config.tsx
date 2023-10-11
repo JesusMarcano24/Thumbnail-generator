@@ -24,9 +24,9 @@ export const ThemeConfig: React.FC<ThemeProp> = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Header/>
-        {children}
-      <Footer/>
+      <Header />
+      {children}
+      <Footer />
     </ThemeProvider>
   );
 };

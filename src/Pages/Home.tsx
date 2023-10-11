@@ -1,10 +1,10 @@
 //MUI
-import Button from '@mui/material/Button';
-import Stack from '@mui/material/Stack';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import Container from '@mui/material/Container';
-import Loader from '../Common/Loader';
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import Container from "@mui/material/Container";
+import Loader from "../Common/Loader";
 
 // React Router Dom
 import { Link } from "react-router-dom";
@@ -12,11 +12,11 @@ import { Link } from "react-router-dom";
 export default function Home() {
   return (
     <>
-      <Loader/>
-      <main id='home'>
+      <Loader />
+      <main id="home">
         <Box
           sx={{
-            bgcolor: 'background.paper',
+            bgcolor: "background.paper",
             pt: 8,
             pb: 6,
           }}
@@ -31,8 +31,14 @@ export default function Home() {
             >
               Thumbnail Generator
             </Typography>
-            <Typography variant="h6" align="center" color="text.secondary" paragraph>
-              Welcome to I love thumbnail Generator! The fastest way to crop, resize and format your images!
+            <Typography
+              variant="h6"
+              align="center"
+              color="text.secondary"
+              paragraph
+            >
+              Welcome to I love thumbnail Generator! The fastest way to crop,
+              resize and format your images!
             </Typography>
             <Stack
               sx={{ pt: 4 }}
