@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import Resizer from "react-image-file-resizer";
-import Loader from "../Common/Loader";
 import Box from '@mui/material/Box';
 import CircularProgress from '@mui/material/CircularProgress';
 import { blueGrey, green } from '@mui/material/colors';
@@ -15,13 +14,11 @@ import { Typography } from "@mui/material";
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import Backdrop from "@mui/material/Backdrop";
 
-import { VisuallyHiddenInput } from "../Common/Styled";
-
 function Resize() {
   const [width, setWidth] = useState<number>(0);
   const [name, setName] = useState<string>("");
   const [select, setSelect] = useState<File | null>(null);
-  const [format, setFormat] = useState<string>("");
+  const [format, setFormat] = useState<string | unknown>("");
 
   const [loading, setLoading] = React.useState(false);
   const [success, setSuccess] = React.useState(false);
@@ -59,8 +56,9 @@ function Resize() {
   };
 
   const fileChangedHandler = () => {
-    if (select) {
-      try {
+  if (select) {
+    try {
+      if (typeof format === "string") {
         Resizer.imageFileResizer(
           select, width, 1000, format, 100, 0,
           (uri) => {
@@ -73,11 +71,14 @@ function Resize() {
           },
           "base64", 20, 20
         );
-      } catch (err) {
-        console.log(err);
+      } else {
+        console.error("Invalid format type:", format);
       }
+    } catch (err) {
+      console.log(err);
     }
-  };
+  }
+};
 
     //Convert the file to base64 and making the post to the API
     const showPreview = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -117,11 +118,13 @@ function Resize() {
       >
         <Button
           sx={{
-            height: 600,
-            width: 1400,
+            height: "90%",
+            width: "90%",
             border: 2,
-            borderColor: "black",
+            borderColor: "grey",
             borderStyle: "dashed",
+            borderRadius: 10,
+            overflow: "hidden",
             backgroundColor: blueGrey[300],
             '&:hover': {
               backgroundColor: blueGrey[400],
@@ -131,11 +134,13 @@ function Resize() {
           variant="contained"
           startIcon={<CloudUploadIcon />}
         >
-          Upload a File or Drag and Drop It!
-          <VisuallyHiddenInput
+          <Typography variant="h6" color="black" noWrap>
+            Select a File or Drag and Drop It
+          </Typography>
+          <input
             type="file"
             onChange={showPreview}
-            className="file-upload-input"
+            className="vh-100 vw-100 position-absolute"
             accept=".jpeg, .png, .jpg"
           />
         </Button>
@@ -149,13 +154,14 @@ function Resize() {
                 noValidate
                 autoComplete="off"
               >
-                <Typography sx={{ mt: 3 }}>Width:</Typography>
+                <Typography sx={{ mt: 3, mb:2 }}>Width:</Typography>
                 <TextField id="outlined-basic" label="Width" variant="outlined" onChange={e => setWidth(parseInt(e.target.value))}/>
-                <Typography sx={{ mt: 3 }}>Choose a name for your new image:</Typography>
+                <Typography sx={{ mt: 3, mb:2 }}>Choose a name for your new image:</Typography>
                 <TextField id="outlined-basic" label="Name" variant="outlined" onChange={e => setName(e.target.value)}/>
               </Box>
               
-              <Box sx={{ minWidth: 150, pt: 5 }}>
+              <Box sx={{ minWidth: 150, pt: 1 }}>
+                <Typography sx={{ mt: 3, mb:2 }}>Choose your preferred format:</Typography>
                 <FormControl fullWidth>
                   <InputLabel id="format-select">Format</InputLabel>
                   <Select
@@ -171,7 +177,7 @@ function Resize() {
                 </FormControl>
               </Box>
 
-              <Button onClick={fileChangedHandler}>Resize</Button>
+              <Button sx={{ mt: 3, mb:2 }} onClick={fileChangedHandler}>Resize</Button>
 
               {!!previewImage && ( 
                   <Box sx={{  position: 'relative' }}>
