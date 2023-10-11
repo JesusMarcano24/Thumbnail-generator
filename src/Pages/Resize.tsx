@@ -9,6 +9,10 @@ import Fab from '@mui/material/Fab';
 import CheckIcon from '@mui/icons-material/Check';
 import DownloadIcon from '@mui/icons-material/Download';
 import { Container, Row, Col } from "reactstrap";
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 
 function Resize() {
   const [width, setWidth] = useState<number>(0);
@@ -109,31 +113,36 @@ function Resize() {
   return (
     <>
       <Loader/>
-      <Container>
-        <Row>
-          <Col xs="6" className="d-flex justify-content-center">
-            {previewImage && (
-                <img src={previewImage} alt="Preview" />
-            )}
-          </Col>
-
-          <Col xs="6" className="d-flex justify-content-center">
+      <Container className="vh-100">
+        <Row className="d-flex align-items-center h-100">
+          <Col xs="12" lg="4" className="d-flex">
             <div>
-              <input type="file" accept=".jpeg, .png, .jpg" onChange={showPreview} />
-              <button onClick={fileChangedHandler}>Resize</button>
+              <div>
+                <label htmlFor="archivo">Subir archivo</label>
+                <input className="d-none" type="file" id="archivo" accept=".jpeg, .png, .jpg" onChange={showPreview} />
+              </div>
               <div>Width:</div>
               <input type="number" onChange={e => setWidth(parseInt(e.target.value))}/>
               <div>Choose a name for your new image</div>
               <input type="text" onChange={e => setName(e.target.value)}/>
+              
+              <Box sx={{ minWidth: 150, pt: 5 }}>
+                <FormControl fullWidth>
+                  <InputLabel id="format-select">Format</InputLabel>
+                  <Select
+                    labelId="format-select"
+                    id="format-select"
+                    label="Age"
+                    onChange={e => setFormat(e.target.value)}
+                  >
+                    <MenuItem value="png">PNG</MenuItem>
+                    <MenuItem value="jpg">JPG</MenuItem>
+                    <MenuItem value="jpeg">JPEG</MenuItem>
+                  </Select>
+                </FormControl>
+              </Box>
 
-              <div>
-                <label htmlFor="format-select">Choose your format:</label>
-                <select id="format-select" onChange={e => setFormat(e.target.value)}>
-                  <option value="png">PNG</option>
-                  <option value="jpg">JPG</option>
-                  <option value="jpeg">JPEG</option>
-                </select>
-              </div>
+              <Button onClick={fileChangedHandler}>Resize</Button>
 
               {!!previewImage && ( 
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -188,6 +197,12 @@ function Resize() {
                 </Box>
               )}
             </div>
+          </Col>
+
+          <Col xs="12" lg="8" className="d-flex justify-content-center">
+            {previewImage && (
+                <img className="mw-100" src={previewImage} alt="Preview" />
+            )}
           </Col>
         </Row>
       </Container>

@@ -1,5 +1,4 @@
 import AppBar from '@mui/material/AppBar';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
@@ -15,7 +14,7 @@ export default function Header() {
         <Toolbar>
           <Link to="/" className='link'>
             <Typography variant="h6" color="white" noWrap>
-              I <FavoriteIcon sx={{ pt: 1}}/> Thumbnail Generator
+              I ❤ Thumbnail Generator
             </Typography>
           </Link>
         </Toolbar>
