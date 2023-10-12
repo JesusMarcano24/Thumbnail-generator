@@ -246,55 +246,71 @@ export default function CropImage() {
         <Row className="d-flex align-items-center">
           <Col xs="12" lg="3" className="d-flex">
             <div>
+              <Typography variant="h4" sx={{ mb: 2, mt: 3 }}>
+                Cropping options:
+              </Typography>
+              <Typography sx={{ mb: 4, mt: 3 }}>
+                Here you can change the scale, name, format and rotation, you
+                can also change the toggle aspect.
+              </Typography>
               <Box component="form" noValidate autoComplete="off">
-                <Typography sx={{ mt: 3, mb: 2 }}>Scale:</Typography>
-                <TextField
-                  id="scale-input"
-                  type="number"
-                  value={scale}
-                  disabled={!imgSrc}
-                  onChange={(e) => setScale(Number(e.target.value))}
-                />
-                <Typography sx={{ mt: 3, mb: 2 }}>Rotate:</Typography>
-                <TextField
-                  id="rotate-input"
-                  type="number"
-                  value={rotate}
-                  disabled={!imgSrc}
-                  onChange={(e) =>
-                    setRotate(
-                      Math.min(180, Math.max(-180, Number(e.target.value)))
-                    )
-                  }
-                />
-                <Typography sx={{ mt: 3, mb: 2 }}>
-                  Choose a name for your new image:
-                </Typography>
-                <TextField
-                  id="outlined-basic"
-                  label="Name"
-                  variant="outlined"
-                  onChange={(e) => setName(e.target.value)}
-                />
+                <div className="d-flex align-items-center justify-content-between">
+                  <Typography sx={{ mt: 3, mb: 2 }}>Scale:</Typography>
+                  <TextField
+                    sx={{ width: 100 }}
+                    id="scale-input"
+                    type="number"
+                    value={scale}
+                    disabled={!imgSrc}
+                    onChange={(e) => setScale(Number(e.target.value))}
+                  />
+                </div>
+                <div className="d-flex align-items-center justify-content-between">
+                  <Typography sx={{ mt: 3, mb: 2 }}>Rotate:</Typography>
+                  <TextField
+                    sx={{ width: 100 }}
+                    id="rotate-input"
+                    type="number"
+                    value={rotate}
+                    disabled={!imgSrc}
+                    onChange={(e) =>
+                      setRotate(
+                        Math.min(180, Math.max(-180, Number(e.target.value)))
+                      )
+                    }
+                  />
+                </div>
+                <div className="d-flex align-items-center justify-content-between">
+                  <Typography sx={{ mt: 3, mb: 2 }}>Choose a name:</Typography>
+                  <TextField
+                    sx={{ width: 150 }}
+                    id="outlined-basic"
+                    label="Name"
+                    variant="outlined"
+                    onChange={(e) => setName(e.target.value)}
+                  />
+                </div>
               </Box>
 
               <Box sx={{ minWidth: 150, pt: 1 }}>
-                <Typography sx={{ mt: 3, mb: 2 }}>
-                  Choose your preferred format:
-                </Typography>
-                <FormControl fullWidth>
-                  <InputLabel id="format-select">Format</InputLabel>
-                  <Select
-                    labelId="format-select"
-                    id="format-select"
-                    label="Format"
-                    onChange={(e) => setFormat(e.target.value)}
-                  >
-                    <MenuItem value="png">PNG</MenuItem>
-                    <MenuItem value="jpg">JPG</MenuItem>
-                    <MenuItem value="jpeg">JPEG</MenuItem>
-                  </Select>
-                </FormControl>
+                <div className="d-flex align-items-center justify-content-between">
+                  <Typography sx={{ mt: 3, mb: 2 }}>
+                    Choose a format:
+                  </Typography>
+                  <FormControl sx={{ width: 100 }}>
+                    <InputLabel id="format-select">Format</InputLabel>
+                    <Select
+                      labelId="format-select"
+                      id="format-select"
+                      label="Format"
+                      onChange={(e) => setFormat(e.target.value)}
+                    >
+                      <MenuItem value="png">PNG</MenuItem>
+                      <MenuItem value="jpg">JPG</MenuItem>
+                      <MenuItem value="jpeg">JPEG</MenuItem>
+                    </Select>
+                  </FormControl>
+                </div>
               </Box>
 
               {!!completedCrop && (
