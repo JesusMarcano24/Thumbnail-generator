@@ -266,7 +266,7 @@ export default function CropImage() {
                   />
                 </div>
                 <div className="d-flex align-items-center justify-content-between">
-                  <Typography sx={{ mt: 3, mb: 2 }}>Rotate:</Typography>
+                  <Typography sx={{ mt: 4, mb: 2 }}>Rotate:</Typography>
                   <TextField
                     sx={{ width: 100 }}
                     id="rotate-input"
@@ -281,7 +281,7 @@ export default function CropImage() {
                   />
                 </div>
                 <div className="d-flex align-items-center justify-content-between">
-                  <Typography sx={{ mt: 3, mb: 2 }}>Choose a name:</Typography>
+                  <Typography sx={{ mt: 4, mb: 2 }}>Choose a name:</Typography>
                   <TextField
                     sx={{ width: 150 }}
                     id="outlined-basic"
@@ -315,7 +315,7 @@ export default function CropImage() {
 
               {!!completedCrop && (
                 <>
-                  <Box sx={{ position: "relative", my: 5 }}>
+                  <Box sx={{ position: "relative", mt: 3, mb: 3 }}>
                     <Button onClick={onDownloadCropClick} variant="outlined">
                       Download Image
                     </Button>
@@ -323,6 +323,14 @@ export default function CropImage() {
                   </Box>
                 </>
               )}
+
+              <Button
+                variant="outlined"
+                fullWidth
+                onClick={() => setOpen(true)}
+              >
+                Choose another image
+              </Button>
             </div>
           </Col>
 
