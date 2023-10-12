@@ -164,16 +164,25 @@ function Resize() {
               </Typography>
               <Box component="form" noValidate autoComplete="off">
                 <div className="d-flex align-items-center justify-content-between">
-                  <Typography sx={{ mt: 3, mb: 2, mr: 5 }}>
+                  <Typography
+                    sx={{
+                      mt: 3,
+                      mb: 2,
+                      mr: 5,
+                    }}
+                  >
                     Width: (min:20px)
                   </Typography>
                   <TextField
-                    sx={{ width: 100 }}
+                    error={width < 20}
+                    sx={{
+                      width: 100,
+                    }}
+                    value={width ? width : 0}
                     id="outlined-basic"
                     label="Width"
                     variant="outlined"
                     onChange={(e) => setWidth(parseInt(e.target.value))}
-                    value={width}
                   />
                 </div>
                 <div className="d-flex align-items-center justify-content-between">
@@ -221,7 +230,7 @@ function Resize() {
                   <ToggleButton
                     fullWidth
                     value="resize"
-                    sx={{ opacity: 0, pointerEvents: "none" }}
+                    sx={{ width: 100, opacity: 0, pointerEvents: "none" }}
                     onClick={fileChangedHandler}
                   >
                     Resize
@@ -231,7 +240,7 @@ function Resize() {
                 {!!previewImage && (
                   <Box sx={{ position: "relative", my: 3 }}>
                     <Button
-                    sx={{ maxWidth: 180, height: 48 }}
+                      sx={{ maxWidth: 180, height: 48 }}
                       variant="outlined"
                       onClick={() => {
                         downloadImage();
