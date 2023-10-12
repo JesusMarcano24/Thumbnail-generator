@@ -15,7 +15,7 @@ function App() {
         <Route path="/" element={<Home />}></Route>
         <Route path="/Crop" element={<CropImage />}></Route>
         <Route path="/Resize" element={<Resize />}></Route>
-        <Route path="/Images" element={<Images />}></Route>
+        <Route path="/images" element={<Images />}></Route>
         <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </>
