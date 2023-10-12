@@ -13,7 +13,6 @@ export default function NotFound() {
         {/* Hero unit */}
         <Box
           sx={{
-            bgcolor: "background.paper",
             pt: 8,
             pb: 6,
           }}
