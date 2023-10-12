@@ -208,6 +208,7 @@ function Resize() {
                       labelId="format-select"
                       id="format-select"
                       label="Format"
+                      value={format}
                       onChange={(e) => setNewFormat(e.target.value)}
                     >
                       <MenuItem value="png">PNG</MenuItem>
@@ -240,7 +241,8 @@ function Resize() {
                 {!!previewImage && (
                   <Box sx={{ position: "relative", my: 3 }}>
                     <Button
-                      sx={{ maxWidth: 180, height: 48 }}
+                      color={width > 19 ? "primary" : "error"}
+                      sx={{ maxWidth: 180, height: 48, pointerEvents: width > 19 ? "all" : "none" }}
                       variant="outlined"
                       onClick={() => {
                         downloadImage();
