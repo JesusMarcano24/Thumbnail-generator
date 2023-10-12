@@ -4,6 +4,7 @@ import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
+import Loader from "../Common/Loader";
 
 // React Router Dom
 import { Link } from "react-router-dom";
@@ -11,6 +12,7 @@ import { Link } from "react-router-dom";
 export default function Home() {
   return (
     <>
+    <Loader/>
       <main id="home">
         <Box
           sx={{
