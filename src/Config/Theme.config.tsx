@@ -2,7 +2,7 @@ import React from "react";
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import Header from "../Common/Header";
 import Footer from "../Common/Footer";
-import backgroundSVG from "./parabolic-pentagon.svg";
+import { SVGImg } from "../Common/Styled";
 
 type ThemeProp = {
   children: JSX.Element;
@@ -19,18 +19,7 @@ export const ThemeConfig: React.FC<ThemeProp> = ({ children }) => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Header />
-      <div
-        style={{
-          backgroundImage: `url(${backgroundSVG})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          backgroundAttachment: "fixed",
-          minHeight: "100vh",
-        }}
-      >
-        {children}
-      </div>
+      <SVGImg>{children}</SVGImg>
       <Footer />
     </ThemeProvider>
   );

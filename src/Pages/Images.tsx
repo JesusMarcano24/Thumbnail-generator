@@ -41,6 +41,7 @@ export default function Images() {
       <div className="d-flex flex-wrap gap-3 justify-content-center">
         {images.map((img: Image) => (
           <Card
+            data-aos="fade-up" data-aos-duration="1500"
             key={img.id}
             sx={{ maxWidth: 600, transition: "transform 0.2s" }}
             onMouseOver={(e) =>
