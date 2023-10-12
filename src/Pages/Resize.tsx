@@ -6,7 +6,6 @@ import Resizer from "react-image-file-resizer";
 
 //MUI
 import { ToggleButton, Typography } from "@mui/material";
-import { blueGrey } from "@mui/material/colors";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import InputLabel from "@mui/material/InputLabel";
@@ -14,14 +13,15 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import Backdrop from "@mui/material/Backdrop";
 
 //Tanstack
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 //Post Image
 import { postImage } from "../api/imagesAPI";
+
+//Backdrop
+import BackdropComponent from "../Components/Backdrop";
 
 function Resize() {
   //States
@@ -118,39 +118,7 @@ function Resize() {
 
   return (
     <>
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open}
-      >
-        <Button
-          sx={{
-            height: "90%",
-            width: "90%",
-            border: 3,
-            borderColor: "grey",
-            borderStyle: "dashed",
-            borderRadius: 10,
-            overflow: "hidden",
-            backgroundColor: blueGrey[300],
-            "&:hover": {
-              backgroundColor: blueGrey[400],
-            },
-          }}
-          component="label"
-          variant="contained"
-          startIcon={<CloudUploadIcon />}
-        >
-          <Typography variant="h6" color="black" noWrap>
-            Select a File or Drag and Drop It
-          </Typography>
-          <input
-            type="file"
-            onChange={showPreview}
-            className="vh-100 vw-100 position-absolute"
-            accept=".jpeg, .png, .jpg"
-          />
-        </Button>
-      </Backdrop>
+      <BackdropComponent handleFunction={showPreview} Openstate={open}/>
       <Container className="py-5">
         <Row className="d-flex align-items-center">
           <Col xs="12" lg="3" className="d-flex">

@@ -37,7 +37,7 @@ export default function Images() {
 
   return (
     <Container className="pb-5">
-      <h1 className="text-center py-5">History Of Images:</h1>
+      <h1 className="text-center py-5">Image history:</h1>
       <div className="d-flex flex-wrap gap-3 justify-content-center">
         {images.map((img: Image) => (
           <Card

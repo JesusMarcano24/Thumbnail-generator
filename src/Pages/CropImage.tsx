@@ -6,8 +6,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 //MUI
 import Button from "@mui/material/Button";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import Backdrop from "@mui/material/Backdrop";
 import ToggleButton from "@mui/material/ToggleButton";
 import {
   Box,
@@ -18,7 +16,6 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { blueGrey } from "@mui/material/colors";
 
 //Post Image
 import { postImage } from "../api/imagesAPI";
@@ -36,6 +33,9 @@ import ReactCrop, {
 //Canvas and debounce
 import { canvasPreview } from "./canvasPreview";
 import { useDebounceEffect } from "./useDebounceEffect";
+
+//Backdrop
+import BackdropComponent from "../Components/Backdrop";
 
 export default function CropImage() {
   //States
@@ -209,39 +209,7 @@ export default function CropImage() {
 
   return (
     <>
-      <Backdrop
-        sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-        open={open}
-      >
-        <Button
-          sx={{
-            height: "90%",
-            width: "90%",
-            border: 2,
-            borderColor: "grey",
-            borderStyle: "dashed",
-            borderRadius: 10,
-            overflow: "hidden",
-            backgroundColor: blueGrey[300],
-            "&:hover": {
-              backgroundColor: blueGrey[400],
-            },
-          }}
-          component="label"
-          variant="contained"
-          startIcon={<CloudUploadIcon />}
-        >
-          <Typography variant="h6" color="black" noWrap>
-            Select a File or Drag and Drop It
-          </Typography>
-          <input
-            type="file"
-            onChange={handleFileUpload}
-            className="vh-100 vw-100 position-absolute"
-            accept=".jpeg, .png, .jpg"
-          />
-        </Button>
-      </Backdrop>
+      <BackdropComponent handleFunction={handleFileUpload} Openstate={open}/>
       <Container className="py-5">
         <Row className="d-flex align-items-center">
           <Col xs="12" lg="3" className="d-flex">
