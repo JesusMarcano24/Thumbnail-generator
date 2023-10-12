@@ -6,11 +6,11 @@ import { Container } from "reactstrap";
 //Tanstack
 import { useQuery } from "@tanstack/react-query";
 
-//Loader
+/* //Loader
 import Loader from "../Common/Loader";
 
 //NotFound
-import NotFound from "../Common/NotFound";
+import NotFound from "../Common/NotFound"; */
 
 import Card from "@mui/material/Card";
 import CardMedia from "@mui/material/CardMedia";
@@ -23,17 +23,17 @@ type Image = {
 
 export default function Images() {
   const {
-    isLoading,
+/*     isLoading, */
     data: images,
-    isError,
+/*     isError, */
   } = useQuery({
     queryKey: ["images"],
     queryFn: getImages,
     select: (image) => image.sort((a: Image, b: Image) => b.id - a.id),
   });
 
-  if (isLoading) return <Loader />;
-  else if (isError) return <NotFound />;
+/*   if (isLoading) return <Loader />;
+  else if (isError) return <NotFound />; */
 
   return (
     <Container className="pb-5">
