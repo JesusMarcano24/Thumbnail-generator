@@ -25,7 +25,7 @@ import { postImage } from "../api/imagesAPI";
 
 function Resize() {
   //States
-  const [width, setWidth] = useState<number>(0);
+  const [width, setWidth] = useState<number>(20);
   const [name, setName] = useState<string>("");
   const [newName, setnewName] = useState<string>("My-resized-image");
   const [select, setSelect] = useState<File | null>(null);
@@ -164,13 +164,16 @@ function Resize() {
               </Typography>
               <Box component="form" noValidate autoComplete="off">
                 <div className="d-flex align-items-center justify-content-between">
-                  <Typography sx={{ mt: 3, mb: 2, mr: 5 }}>Width:</Typography>
+                  <Typography sx={{ mt: 3, mb: 2, mr: 5 }}>
+                    Width: (min:20px)
+                  </Typography>
                   <TextField
                     sx={{ width: 100 }}
                     id="outlined-basic"
                     label="Width"
                     variant="outlined"
                     onChange={(e) => setWidth(parseInt(e.target.value))}
+                    value={width}
                   />
                 </div>
                 <div className="d-flex align-items-center justify-content-between">
@@ -185,9 +188,7 @@ function Resize() {
                     onChange={(e) => setnewName(e.target.value)}
                   />
                 </div>
-              </Box>
 
-              <Box sx={{ minWidth: 150, pt: 1 }}>
                 <div className="d-flex align-items-center justify-content-between">
                   <Typography sx={{ mt: 3, mb: 2 }}>
                     Choose a format:
@@ -207,28 +208,10 @@ function Resize() {
                   </FormControl>
                 </div>
               </Box>
-
-              {!!previewImage && (
-                <Box sx={{ position: "relative", my: 3 }}>
-                  <Button
-                    variant="outlined"
-                    onClick={() => {
-                      downloadImage();
-                    }}
-                  >
-                    Download Image
-                  </Button>
-                </Box>
-              )}
-            </div>
-          </Col>
-
-          <Col xs="12" lg="6" className="d-flex justify-content-center">
-            {previewImage && (
-              <div>
+              <div className="d-flex align-items-center justify-content-between flex-wrap">
                 {width >= 20 ? (
                   <ToggleButton
-                    fullWidth
+                    sx={{ width: 100 }}
                     value="meassures"
                     onClick={fileChangedHandler}
                   >
@@ -244,6 +227,27 @@ function Resize() {
                     Resize
                   </ToggleButton>
                 )}
+
+                {!!previewImage && (
+                  <Box sx={{ position: "relative", my: 3 }}>
+                    <Button
+                    sx={{ maxWidth: 180, height: 48 }}
+                      variant="outlined"
+                      onClick={() => {
+                        downloadImage();
+                      }}
+                    >
+                      Download Image
+                    </Button>
+                  </Box>
+                )}
+              </div>
+            </div>
+          </Col>
+
+          <Col xs="12" lg="6" className="d-flex justify-content-center">
+            {previewImage && (
+              <div>
                 <img className="w-100" src={mainImage} alt="Main image" />
 
                 <ToggleButton

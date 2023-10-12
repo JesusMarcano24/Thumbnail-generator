@@ -15,8 +15,13 @@ export const VisuallyHiddenInput = styled("input")({
 
 //Avatar
 export const Avatar = styled("img")({
-  borderRadius: '50%',
+  borderRadius: "50%",
   border: 1,
-  height: '48px',
-  width: '48px',
+  height: "48px",
+  width: "48px",
+
+  "@media (max-width: 600px)": {
+    height: "35px",
+    width: "35px",
+  },
 });

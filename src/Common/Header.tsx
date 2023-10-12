@@ -22,9 +22,12 @@ import "../index.css";
 
 //React Router Dom
 import { Link } from "react-router-dom";
+import { useMediaQuery } from "@mui/material";
 
 export default function Header() {
   const { user, isAuthenticated, isLoading } = useAuth0();
+
+  const isLargeScreen = useMediaQuery("(min-width:600px)");
 
   if (isLoading) {
     return <Loader />;
@@ -42,17 +45,19 @@ export default function Header() {
         >
           <Link to="/" className="link">
             <Typography
-              variant="h6"
+              sx={{
+                fontSize: isLargeScreen ? "20px" : "16px",
+              }}
               color="white"
               noWrap
               style={{ transition: "color 0.3s" }}
               onMouseOver={(e) => (e.currentTarget.style.color = "darkgreen")}
               onMouseOut={(e) => (e.currentTarget.style.color = "white")}
             >
-              I ❤ Thumbnail Generator
+              {isLargeScreen ? "I ❤ Thumbnail Generator" : "I ❤ TG"}
             </Typography>
           </Link>
-          <div className="h-100">
+          <div>
             {isAuthenticated ? <LogoutButton /> : <LoginButton />}
             {isAuthenticated && user?.picture && user?.name && (
               <Avatar src={user.picture} alt={user.name} />
