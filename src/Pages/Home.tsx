@@ -9,7 +9,6 @@ import Container from "@mui/material/Container";
 import { Link } from "react-router-dom";
 
 export default function Home() {
-
   return (
     <>
       <main id="home">
@@ -43,18 +42,19 @@ export default function Home() {
                 resize and format your images!
               </Typography>
               <Stack
-                sx={{ pt: 4 }}
+                sx={{ pt: 4, gap: 4 }}
                 direction="row"
-                spacing={2}
                 justifyContent="center"
+                alignItems="center"
+                flexWrap="wrap"
               >
-                <Link to="/Crop">
+                <Link to="/Crop" data-aos="fade-up" data-aos-duration="1500">
                   <Button variant="outlined">Crop your image</Button>
                 </Link>
-                <Link to="/Resize">
+                <Link to="/Resize" data-aos="fade-up" data-aos-duration="1800">
                   <Button variant="outlined">Resize your image</Button>
                 </Link>
-                <Link to="/images">
+                <Link to="/images" data-aos="fade-up" data-aos-duration="2000">
                   <Button variant="outlined">Uploaded images</Button>
                 </Link>
               </Stack>

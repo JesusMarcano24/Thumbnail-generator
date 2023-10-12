@@ -1,4 +1,5 @@
 import { styled } from "@mui/material/styles";
+import backgroundSVG from "../Config/parabolic-pentagon.svg";
 
 //Button
 export const VisuallyHiddenInput = styled("input")({
@@ -24,4 +25,14 @@ export const Avatar = styled("img")({
     height: "35px",
     width: "35px",
   },
+});
+
+//Svg Background
+export const SVGImg = styled("div")({
+  backgroundImage: `url(${backgroundSVG})`,
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  backgroundRepeat: "no-repeat",
+  backgroundAttachment: "fixed",
+  minHeight: "100vh",
 });
