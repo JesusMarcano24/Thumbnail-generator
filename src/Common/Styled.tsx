@@ -12,3 +12,11 @@ export const VisuallyHiddenInput = styled("input")({
   whiteSpace: "nowrap",
   width: 1,
 });
+
+//Avatar
+export const Avatar = styled("img")({
+  borderRadius: '50%',
+  border: 1,
+  height: '48px',
+  width: '48px',
+});

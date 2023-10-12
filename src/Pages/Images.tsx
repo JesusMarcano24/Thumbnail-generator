@@ -1,6 +1,8 @@
 //Api
 import { getImages } from "../api/imagesAPI";
 
+import { Container } from "reactstrap";
+
 //Tanstack
 import { useQuery } from "@tanstack/react-query";
 
@@ -9,6 +11,10 @@ import Loader from "../Common/Loader";
 
 //NotFound
 import NotFound from "../Common/NotFound";
+
+import Card from "@mui/material/Card";
+import CardMedia from "@mui/material/CardMedia";
+import { CardActionArea } from "@mui/material";
 
 type Image = {
   id: number;
@@ -29,9 +35,32 @@ export default function Images() {
   if (isLoading) return <Loader />;
   else if (isError) return <NotFound />;
 
-  return images.map((img: Image) => (
-    <div>
-      <img src={img.base64} alt="Image" />
-    </div>
-  ));
+  return (
+    <Container className="pb-5">
+      <h1 className="text-center py-5">History Of Images:</h1>
+      <div className="d-flex flex-wrap gap-3 justify-content-center">
+        {images.map((img: Image) => (
+          <Card
+            key={img.id}
+            sx={{ maxWidth: 600, transition: "transform 0.2s" }}
+            onMouseOver={(e) =>
+              (e.currentTarget.style.transform = "translateY(-5px)")
+            }
+            onMouseOut={(e) =>
+              (e.currentTarget.style.transform = "translateY(0px)")
+            }
+          >
+            <CardActionArea>
+              <CardMedia
+                component="img"
+                height="200"
+                image={img.base64}
+                alt="green iguana"
+              />
+            </CardActionArea>
+          </Card>
+        ))}
+      </div>
+    </Container>
+  );
 }
