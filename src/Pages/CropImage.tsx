@@ -1,26 +1,14 @@
-import Button from "@mui/material/Button";
-import CloudUploadIcon from "@mui/icons-material/CloudUpload";
-import Loader from "../Common/Loader";
+import { useState, useRef } from "react";
+import { Container, Row, Col } from "reactstrap";
 
+//Tanstack
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
-import { useState, useRef } from "react";
-
-import { postImage } from "../api/imagesAPI";
-
+//MUI
+import Button from "@mui/material/Button";
+import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import Backdrop from "@mui/material/Backdrop";
-
-import ReactCrop, {
-  centerCrop,
-  makeAspectCrop,
-  Crop,
-  PixelCrop,
-  convertToPixelCrop,
-} from "react-image-crop";
-import { canvasPreview } from "./canvasPreview";
-import { useDebounceEffect } from "./useDebounceEffect";
-
-import "react-image-crop/dist/ReactCrop.css";
+import ToggleButton from "@mui/material/ToggleButton";
 import {
   Box,
   FormControl,
@@ -31,26 +19,45 @@ import {
   Typography,
 } from "@mui/material";
 import { blueGrey } from "@mui/material/colors";
-import { Container, Row, Col } from "reactstrap";
+
+//Post Image
+import { postImage } from "../api/imagesAPI";
+
+//React Crop
+import "react-image-crop/dist/ReactCrop.css";
+import ReactCrop, {
+  centerCrop,
+  makeAspectCrop,
+  Crop,
+  PixelCrop,
+  convertToPixelCrop,
+} from "react-image-crop";
+
+//Canvas and debounce
+import { canvasPreview } from "./canvasPreview";
+import { useDebounceEffect } from "./useDebounceEffect";
 
 export default function CropImage() {
+  //States
   const [imgSrc, setImgSrc] = useState("");
-  const previewCanvasRef = useRef<HTMLCanvasElement>(null);
-  const imgRef = useRef<HTMLImageElement>(null);
-  const hiddenAnchorRef = useRef<HTMLAnchorElement>(null);
   const blobUrlRef = useRef("");
   const [crop, setCrop] = useState<Crop>();
   const [completedCrop, setCompletedCrop] = useState<PixelCrop>();
-  const [scale, setScale] = useState(1);
-  const [rotate, setRotate] = useState(0);
+  const [scale, setScale] = useState<number>(1);
+  const [rotate, setRotate] = useState<number>();
   const [aspect, setAspect] = useState<number | undefined>(16 / 9);
-
-  const [name, setName] = useState<string>("");
-  const [format, setFormat] = useState<string | unknown>("");
-
+  const [name, setName] = useState<string>("My-cropped-image");
+  const [width, setWidth] = useState<undefined | number>(0);
+  const [height, setHeight] = useState<undefined | number>(0);
+  const [format, setFormat] = useState<string | unknown>("PNG");
   const [open, setOpen] = useState(true);
 
-  //Center Crop
+  //Refs
+  const previewCanvasRef = useRef<HTMLCanvasElement>(null);
+  const imgRef = useRef<HTMLImageElement>(null);
+  const hiddenAnchorRef = useRef<HTMLAnchorElement | null>(null);
+
+  //Center the aspect of the Crop
   function centerAspectCrop(
     mediaWidth: number,
     mediaHeight: number,
@@ -75,7 +82,13 @@ export default function CropImage() {
   function onImageLoad(e: React.SyntheticEvent<HTMLImageElement>) {
     if (aspect) {
       const { width, height } = e.currentTarget;
+      console.log(width);
       setCrop(centerAspectCrop(width, height, aspect));
+
+      setWidth(imgRef.current?.naturalWidth);
+      setHeight(imgRef.current?.naturalHeight);
+
+      console.log(width);
     }
   }
 
@@ -86,7 +99,6 @@ export default function CropImage() {
     if (!image || !previewCanvas || !completedCrop) {
       throw new Error("Crop canvas does not exist");
     }
-
     const scaleX = image.naturalWidth / image.width;
     const scaleY = image.naturalHeight / image.height;
 
@@ -122,15 +134,13 @@ export default function CropImage() {
     }
     blobUrlRef.current = URL.createObjectURL(blob);
 
-    // Configura el atributo "download" con el nombre personalizado
+    // adding custom name and download
     hiddenAnchorRef.current!.href = blobUrlRef.current;
     hiddenAnchorRef.current!.download = customFileName;
-
-    // Hace clic en el enlace para iniciar la descarga
     hiddenAnchorRef.current!.click();
   }
 
-  //Efecto rebote
+  //Debounce Effect
   useDebounceEffect(
     async () => {
       if (
@@ -152,6 +162,7 @@ export default function CropImage() {
     [completedCrop, scale, rotate]
   );
 
+  //Change the aspect
   function handleToggleAspectClick() {
     if (aspect) {
       setAspect(undefined);
@@ -162,7 +173,6 @@ export default function CropImage() {
         const { width, height } = imgRef.current;
         const newCrop = centerAspectCrop(width, height, 16 / 9);
         setCrop(newCrop);
-        // Updates the preview
         setCompletedCrop(convertToPixelCrop(newCrop, width, height));
       }
     }
@@ -170,7 +180,6 @@ export default function CropImage() {
 
   //QueryClient
   const queryClient = useQueryClient();
-
   const addImageMutation = useMutation({
     mutationFn: postImage,
     onSuccess: () => {
@@ -184,7 +193,7 @@ export default function CropImage() {
     const selectedFile = event.target.files && event.target.files[0];
     if (selectedFile) {
       setCrop(undefined); // Makes crop preview update between images.
-      console.log("Archivo seleccionado:", selectedFile.name);
+      console.log("Selected file:", selectedFile.name);
       const reader = new FileReader();
       reader.onload = function (e) {
         if (e.target && typeof e.target.result === "string") {
@@ -233,10 +242,9 @@ export default function CropImage() {
           />
         </Button>
       </Backdrop>
-      <Loader />
-      <Container className="vh-100">
-        <Row className="d-flex align-items-center h-100">
-          <Col xs="12" lg="4" className="d-flex">
+      <Container className="py-5">
+        <Row className="d-flex align-items-center">
+          <Col xs="12" lg="3" className="d-flex">
             <div>
               <Box component="form" noValidate autoComplete="off">
                 <Typography sx={{ mt: 3, mb: 2 }}>Scale:</Typography>
@@ -289,63 +297,79 @@ export default function CropImage() {
                 </FormControl>
               </Box>
 
-              <div>
-                <button onClick={handleToggleAspectClick}>
-                  Toggle aspect {aspect ? "off" : "on"}
-                </button>
-              </div>
-
               {!!completedCrop && (
                 <>
-                  <div>
-                    <canvas
-                      ref={previewCanvasRef}
-                      style={{
-                        border: "1px solid black",
-                        objectFit: "contain",
-                        width: completedCrop.width,
-                        height: completedCrop.height,
-                      }}
-                    />
-                  </div>
-                  <div>
-                    <button onClick={onDownloadCropClick}>Download Crop</button>
-                    <a
-                      href="#hidden"
-                      ref={hiddenAnchorRef}
-                      download
-                      style={{
-                        position: "absolute",
-                        top: "-200vh",
-                        visibility: "hidden",
-                      }}
-                    >
-                      Hidden download
-                    </a>
-                  </div>
+                  <Box sx={{ position: "relative", my: 5 }}>
+                    <Button onClick={onDownloadCropClick} variant="outlined">
+                      Download Image
+                    </Button>
+                    <a download ref={hiddenAnchorRef} className="d-none" />
+                  </Box>
                 </>
               )}
             </div>
           </Col>
 
-          <Col xs="12" lg="8" className="d-flex justify-content-center">
+          <Col xs="12" lg="6" className="d-flex justify-content-center">
             {!!imgSrc && (
-              <ReactCrop
-                crop={crop}
-                onChange={(_, percentCrop) => setCrop(percentCrop)}
-                onComplete={(c) => setCompletedCrop(c)}
-                aspect={aspect}
-                minWidth={50}
-                minHeight={50}
-              >
-                <img
-                  ref={imgRef}
-                  alt="Crop me"
-                  src={imgSrc}
-                  style={{ transform: `scale(${scale}) rotate(${rotate}deg)` }}
-                  onLoad={onImageLoad}
-                />
-              </ReactCrop>
+              <div>
+                <div>
+                  <ToggleButton
+                    fullWidth
+                    value="check"
+                    onClick={handleToggleAspectClick}
+                  >
+                    Toggle aspect: {aspect ? "off" : "on"}
+                  </ToggleButton>
+                </div>
+                <ReactCrop
+                  crop={crop}
+                  onChange={(_, percentCrop) => setCrop(percentCrop)}
+                  onComplete={(e) => setCompletedCrop(e)}
+                  aspect={aspect}
+                  minWidth={50}
+                  minHeight={50}
+                >
+                  <img
+                    ref={imgRef}
+                    alt="Crop me"
+                    src={imgSrc}
+                    style={{
+                      transform: `scale(${scale}) rotate(${rotate}deg)`,
+                    }}
+                    className="w-100"
+                    onLoad={onImageLoad}
+                  />
+                </ReactCrop>
+                <ToggleButton
+                  value="meassures"
+                  fullWidth
+                  className="d-flex justify-content-evenly"
+                >
+                  <div>width: {width} px</div>
+                  <div>height: {height} px</div>
+                </ToggleButton>
+              </div>
+            )}
+          </Col>
+          <Col xs="12" lg="3" className="mx-auto h-100 pt-5">
+            {!!completedCrop && (
+              <>
+                <label className="d-flex flex-column align-items-center">
+                  <ToggleButton value="Preview" fullWidth>
+                    Preview
+                  </ToggleButton>
+                  <canvas
+                    ref={previewCanvasRef}
+                    style={{
+                      border: "1px solid black",
+                      objectFit: "contain",
+                      width: "100%",
+                      height: "100%",
+                    }}
+                  />
+                </label>
+              </>
             )}
           </Col>
         </Row>

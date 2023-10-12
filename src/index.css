@@ -1,3 +1,107 @@
-.link{
-    text-decoration: none;
+.link {
+  text-decoration: none;
+}
+
+/*Thumbnail Generator*/
+
+.title-loader {
+  font-size: 48px;
+  color: #fff;
+  display: inline-block;
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  position: relative;
+}
+
+.title-loader:before {
+  content: "";
+  animation: 3s print forwards;
+}
+
+.title-loader:after {
+  content: "";
+  position: absolute;
+  right: -4px;
+  top: 50%;
+  transform: translatey(-45%);
+  width: 2px;
+  height: 1em;
+  background: currentColor;
+  opacity: 0.8;
+  animation: 1s blink steps(2) infinite;
+}
+
+@keyframes blink {
+  0% {
+    visibility: hidden;
+  }
+  100% {
+    visibility: visible;
+  }
+}
+
+@keyframes print {
+  0% {
+    content: "T";
+  }
+  5% {
+    content: "Th";
+  }
+  10% {
+    content: "Thu";
+  }
+  15% {
+    content: "Thum";
+  }
+  20% {
+    content: "Thumb";
+  }
+  25% {
+    content: "Thumbn";
+  }
+  30% {
+    content: "Thumbna";
+  }
+  35% {
+    content: "Thumbnai";
+  }
+  40% {
+    content: "Thumbnail";
+  }
+  45% {
+    content: "Thumbnail";
+  }
+  50% {
+    content: "Thumbnail";
+  }
+  55% {
+    content: "Thumbnail G";
+  }
+  60% {
+    content: "Thumbnail Ge";
+  }
+  65% {
+    content: "Thumbnail Gen";
+  }
+  70% {
+    content: "Thumbnail Gene";
+  }
+  75% {
+    content: "Thumbnail Gener";
+  }
+  80% {
+    content: "Thumbnail Genera";
+  }
+  85% {
+    content: "Thumbnail Generat";
+  }
+  90% {
+    content: "Thumbnail Generato";
+  }
+  95% {
+    content: "Thumbnail Generator";
+  }
+  100% {
+    content: "Thumbnail Generator.";
+  }
 }

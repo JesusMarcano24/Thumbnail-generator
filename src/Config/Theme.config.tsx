@@ -1,22 +1,16 @@
+import React from "react";
 import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import Header from "../Common/Header";
 import Footer from "../Common/Footer";
+import backgroundSVG from "./parabolic-pentagon.svg";
 
 type ThemeProp = {
   children: JSX.Element;
 };
 
-export enum themePalette {
-  BG = "#12181b",
-}
-
 const theme = createTheme({
   palette: {
     mode: "dark",
-    background: {
-      default: themePalette.BG,
-      paper: themePalette.BG,
-    },
   },
 });
 
@@ -25,7 +19,18 @@ export const ThemeConfig: React.FC<ThemeProp> = ({ children }) => {
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Header />
-      {children}
+      <div
+        style={{
+          backgroundImage: `url(${backgroundSVG})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          backgroundAttachment: "fixed",
+          minHeight: "100vh",
+        }}
+      >
+        {children}
+      </div>
       <Footer />
     </ThemeProvider>
   );
