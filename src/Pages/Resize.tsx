@@ -23,7 +23,11 @@ import { postImage } from "../api/imagesAPI";
 //Backdrop
 import BackdropComponent from "../Components/Backdrop";
 
-function Resize() {
+export default function Resize() {
+
+  //QueryClient
+  const queryClient = useQueryClient();
+
   //States
   const [width, setWidth] = useState<number>(20);
   const [name, setName] = useState<string>("");
@@ -66,9 +70,6 @@ function Resize() {
       }
     }
   };
-
-  //QueryClient
-  const queryClient = useQueryClient();
 
   const addImageMutation = useMutation({
     mutationFn: postImage,
@@ -273,5 +274,3 @@ function Resize() {
     </>
   );
 }
-
-export default Resize;

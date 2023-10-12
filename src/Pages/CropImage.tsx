@@ -31,8 +31,8 @@ import ReactCrop, {
 } from "react-image-crop";
 
 //Canvas and debounce
-import { canvasPreview } from "./canvasPreview";
-import { useDebounceEffect } from "./useDebounceEffect";
+import { canvasPreview } from "../Utils/canvasPreview";
+import { useDebounceEffect } from "../Utils/useDebounceEffect";
 
 //Backdrop
 import BackdropComponent from "../Components/Backdrop";
