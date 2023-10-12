@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const imagesApi = axios.create({
-  baseURL: "http://localhost:3000/images",
+  baseURL: "https://b16db9c4.thumbnail-generator.pages.dev/images",
 });
 
 export const getImages = async () => {
