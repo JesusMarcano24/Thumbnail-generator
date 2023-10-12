@@ -4,9 +4,6 @@ import { Container } from "reactstrap";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 
-//Loader
-import Loader from "./Loader";
-
 //Login and Logout
 import LogoutButton from "../Auth0/Logout";
 import LoginButton from "../Auth0/Login";
@@ -25,14 +22,9 @@ import { Link } from "react-router-dom";
 import { useMediaQuery } from "@mui/material";
 
 export default function Header() {
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user, isAuthenticated } = useAuth0();
 
   const isLargeScreen = useMediaQuery("(min-width:600px)");
-
-  if (isLoading) {
-    return <Loader />;
-  }
-
   return (
     <>
       <Container>
