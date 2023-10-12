@@ -242,7 +242,11 @@ function Resize() {
                   <Box sx={{ position: "relative", my: 3 }}>
                     <Button
                       color={width > 19 ? "primary" : "error"}
-                      sx={{ maxWidth: 180, height: 48, pointerEvents: width > 19 ? "all" : "none" }}
+                      sx={{
+                        maxWidth: 180,
+                        height: 48,
+                        pointerEvents: width > 19 ? "all" : "none",
+                      }}
                       variant="outlined"
                       onClick={() => {
                         downloadImage();
@@ -253,6 +257,14 @@ function Resize() {
                   </Box>
                 )}
               </div>
+
+              <Button
+                variant="outlined"
+                fullWidth
+                onClick={() => setOpen(true)}
+              >
+                Choose another image
+              </Button>
             </div>
           </Col>
 
