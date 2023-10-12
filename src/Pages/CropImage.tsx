@@ -35,7 +35,7 @@ import { canvasPreview } from "./canvasPreview";
 import { useDebounceEffect } from "./useDebounceEffect";
 
 //Backdrop
-import BackdropComponent from "./Backdrop";
+import BackdropComponent from "../Components/Backdrop";
 
 export default function CropImage() {
   //States

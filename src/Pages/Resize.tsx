@@ -21,7 +21,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { postImage } from "../api/imagesAPI";
 
 //Backdrop
-import BackdropComponent from "./Backdrop";
+import BackdropComponent from "../Components/Backdrop";
 
 function Resize() {
   //States
