@@ -177,7 +177,6 @@ export default function Resize() {
                       labelId="format-select"
                       id="format-select"
                       label="Format"
-                      value={format}
                       onChange={(e) => setNewFormat(e.target.value)}
                     >
                       <MenuItem value="png">PNG</MenuItem>
