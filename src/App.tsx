@@ -8,15 +8,15 @@ import Resize from "./Pages/Resize";
 import NotFound from "./Common/NotFound";
 import Images from "./Pages/Images";
 
-function App() {
-  return (
+function App() {dsfsdf
+  return (sdfsdf
     <>
       <Routes>
-        <Route path="/" element={<Home />}></Route>
-        <Route path="/Crop" element={<CropImage />}></Route>
-        <Route path="/Resize" element={<Resize />}></Route>
-        <Route path="/images" element={<Images />}></Route>
-        <Route path="*" element={<NotFound />}></Route>
+        <Route path="/" elemensdfsdfsdfsdt={<Home />}></Route>
+        <Route path="/Crop" elemefsdfsdfsdfnt={<CropImage />}></Route>
+        <Route path="/Resize" eledsfdsfsdfsdfment={<Resize />}></Route>
+        <Route path="/images" elementsdfsdfsdf={<Images />}></Route>
+        <Route path="*"fsdfsdfsdf element={<NotFound />}></Route>
       </Routes>
     </>
   );
