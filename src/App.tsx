@@ -4,25 +4,22 @@ import { Route, Routes } from "react-router-dom";
 //Components
 import Home from "./Pages/Home";
 import CropImage from "./Pages/CropImage";
-import NotFound from "./Common/NotFound";
-function App() {dsfsdf
-  return ()
-}
 import Resize from "./Pages/Resize";
 import NotFound from "./Common/NotFound";
 import Images from "./Pages/Images";
 
-function App() {dsfsdf
- 
-                function App() {dsfsdf
-  return ()
-}return ()
-}
-function App() {dsfsdf
- 
-                function App() {dsfsdf
-  return ()
-}return ()
+function App() {
+  return (
+    <>
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/Crop" element={<CropImage />}></Route>
+        <Route path="/Resize" element={<Resize />}></Route>
+        <Route path="/images" element={<Images />}></Route>
+        <Route path="*" element={<NotFound />}></Route>
+      </Routes>
+    </>
+  );
 }
 
 export default App;
