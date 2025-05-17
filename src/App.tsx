@@ -11,7 +11,7 @@ import Images from "./Pages/Images";
 function App() {
   return (
     <>
-      <Routes>
+      <Routess>
         <Route path="/" element={<Home />}></Route>
         <Route path="/Crop" element={<CropImage />}></Route>
         <Route path="/Resize" element={<Resize />}></Route>
