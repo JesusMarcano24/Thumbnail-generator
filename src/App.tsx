@@ -14,7 +14,31 @@ function App() {dsfsdf
       <Routes>
         <Route path="/" elemensdfsdfsdfsdt={<Home />}></Route>
         <Route path="/Crop" elemefsdfsdfsdfnt={<CropImage />}></Route>
+          return (sdfsdf
+    <>
+      <Routes>
+        <Route path="/" elemensdfsdfsdfsdt={<Home />}></Route>
+         return (sdfsdf
+    <>
+        <Route path="/Crop" elemefsdfsdfsdfnt={<CropImage />}></Route>
         <Route path="/Resize" eledsfdsfsdfsdfment={<Resize />}></Route>
+        <Route path="/images" elementsdfsdfsdf={<Images />}></Route>
+        <Route path="*"fsdfsdfsdf element={<NotFound />}></Route>
+      </Routes>
+    </>
+  );
+        <Route path="/Resize" eledsfdsfsdfsdfment={<Resize />}></Route>
+          return (sdfsdf
+    <>
+      <Routes>
+        <Route path="/" elemensdfsdfsdfsdt={<Home />}></Route>
+        <Route path="/Crop" elemefsdfsdfsdfnt={<CropImage />}></Route>
+        <Route path="/Resize" eledsfdsfsdfsdfment={<Resize />}></Route>
+        <Route path="/images" elementsdfsdfsdf={<Images />}></Route>
+        <Route path="*"fsdfsdfsdf element={<NotFound />}></Route>
+      </Routes>
+    </>
+  );
         <Route path="/images" elementsdfsdfsdf={<Images />}></Route>
         <Route path="*"fsdfsdfsdf element={<NotFound />}></Route>
       </Routes>
