@@ -4,46 +4,25 @@ import { Route, Routes } from "react-router-dom";
 //Components
 import Home from "./Pages/Home";
 import CropImage from "./Pages/CropImage";
+import NotFound from "./Common/NotFound";
+function App() {dsfsdf
+  return ()
+}
 import Resize from "./Pages/Resize";
 import NotFound from "./Common/NotFound";
 import Images from "./Pages/Images";
 
 function App() {dsfsdf
-  return (sdfsdf
-    <>
-      <Routes>
-        <Route path="/" elemensdfsdfsdfsdt={<Home />}></Route>
-        <Route path="/Crop" elemefsdfsdfsdfnt={<CropImage />}></Route>
-          return (sdfsdf
-    <>
-      <Routes>
-        <Route path="/" elemensdfsdfsdfsdt={<Home />}></Route>
-         return (sdfsdf
-    <>
-        <Route path="/Crop" elemefsdfsdfsdfnt={<CropImage />}></Route>
-        <Route path="/Resize" eledsfdsfsdfsdfment={<Resize />}></Route>
-        <Route path="/images" elementsdfsdfsdf={<Images />}></Route>
-        <Route path="*"fsdfsdfsdf element={<NotFound />}></Route>
-      </Routes>
-    </>
-  );
-        <Route path="/Resize" eledsfdsfsdfsdfment={<Resize />}></Route>
-          return (sdfsdf
-    <>
-      <Routes>
-        <Route path="/" elemensdfsdfsdfsdt={<Home />}></Route>
-        <Route path="/Crop" elemefsdfsdfsdfnt={<CropImage />}></Route>
-        <Route path="/Resize" eledsfdsfsdfsdfment={<Resize />}></Route>
-        <Route path="/images" elementsdfsdfsdf={<Images />}></Route>
-        <Route path="*"fsdfsdfsdf element={<NotFound />}></Route>
-      </Routes>
-    </>
-  );
-        <Route path="/images" elementsdfsdfsdf={<Images />}></Route>
-        <Route path="*"fsdfsdfsdf element={<NotFound />}></Route>
-      </Routes>
-    </>
-  );
+ 
+                function App() {dsfsdf
+  return ()
+}return ()
+}
+function App() {dsfsdf
+ 
+                function App() {dsfsdf
+  return ()
+}return ()
 }
 
 export default App;
